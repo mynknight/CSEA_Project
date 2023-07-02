@@ -1,0 +1,97 @@
+{% extends "root/base.html" %} {% load crispy_forms_tags %} {% block content %}
+
+  <section class="py-5 my-5">
+    <div class="container">
+      <h1 class="mb-5">My Profile</h1>
+      <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+        <div class="profile-tab-nav border-right">
+          <div class="p-4">
+            <div class="img-circle text-center mb-3">
+              <img src="{{user.profile.image.url}}" alt="Image" class="shadow" />
+            </div>
+            <h4 class="text-center">{{ user.username }}</h4>
+
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="col-md-6">
+                      <div id="div_id_image" class="form-group">
+                        <div>
+                          <br>
+                          <label for="id_image" class="btn btn-primary">
+                            Choose Profile
+                            <input type="file" name="image" accept="image/*" style="display: none;" id="id_image">
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <div class="form-group">
+                <button class="btn btn-primary" type="submit">Update</button>
+              </div>
+            </form>
+            
+          </div>
+          <!-- <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+						<a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
+							<i class="fa fa-home text-center mr-1"></i> 
+							Account
+						</a>
+						<a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
+							<i class="fa fa-key text-center mr-1"></i> 
+							Password
+						</a>
+						<a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
+							<i class="fa fa-user text-center mr-1"></i> 
+							Security
+						</a>
+						<a class="nav-link" id="application-tab" data-toggle="pill" href="#application" role="tab" aria-controls="application" aria-selected="false">
+							<i class="fa fa-tv text-center mr-1"></i> 
+							Application
+						</a>
+						<a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
+							<i class="fa fa-bell text-center mr-1"></i> 
+							Notification
+						</a>
+					</div> -->
+        </div>
+        <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="account"
+            role="tabpanel"
+            aria-labelledby="account-tab"
+          >
+            <h3 class="mb-4">Account Info</h3>
+            <form method="POST" enctype="multipart/form-data">
+              <input type="hidden" name="csrfmiddlewaretoken" value="IWu97SCSsyQuSeLqNbmoNysPTNTFX1OribsLJ8T7qBnv0KQEScbKE6CikabCRBzF">
+              <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Edit Changes</legend>
+                <div class="row">
+                  <div class="col-md-6">
+                    
+
+<div id="div_id_username" class="form-group"> <label for="id_username" class=" requiredField">
+                Username </label> <div> <input type="text" name="username" value="mynknight" maxlength="150" class="textinput form-control" required="" id="id_username">  </div> </div> <div id="div_id_email" class="form-group"> <label for="id_email" class=" requiredField">
+                Email </label> <div> <input type="email" name="email" value="mayankchoudhary651@gmail.com" class="emailinput form-control" required="" id="id_email"> </div> </div>
+
+                  </div>
+                </div>
+              </fieldset>
+              <div class="form-group">
+                <button class="btn btn-primary" type="submit">Update</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+</div>
+{% endblock content %}
