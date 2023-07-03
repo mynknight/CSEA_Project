@@ -71,3 +71,41 @@ body {
     white-space: nowrap;
   }
   
+  .custom-width {
+    width: 300px; /* Adjust the width as per your requirement */
+  }
+   
+
+
+
+/* cards used in users page */
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+  }
+  
+  .account-img {
+    height: 200px;
+    width: 160px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+    border-radius: 10%;
+  }
+
+  /* .account-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  } */
+  
+  .account-heading {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  
+  .text-secondary {
+    color: #888;
+  }
+  

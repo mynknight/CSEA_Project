@@ -26,7 +26,7 @@
 
   <body>
     <nav
-      class="navbar navbar-expand d-flex flex-column align-item-start"
+      class="navbar navbar-expand d-flex flex-column align-item-start active-nav"
       id="sidebar"
     >
       <a href="#" class="navbar-brand text-light mt-5">
@@ -34,19 +34,27 @@
       </a>
       <ul class="navbar-nav d-flex flex-column mt-5 w-100">
         <li class="nav-item w-100">
-          <a href="#" class="nav-link text-light pl-4">Home</a>
+          <a href="{% url 'home'%}" class="nav-link text-light pl-4">Home</a>
         </li>
         <li class="nav-item w-100">
-          <a href="#" class="nav-link text-light pl-4">My Files</a>
+          <a href="{% url 'all_files'%}" class="nav-link text-light pl-4"
+            >My Files</a
+          >
         </li>
         <li class="nav-item w-100">
-          <a href="#" class="nav-link text-light pl-4">Users</a>
+          <a href="{% url 'all_users'%}" class="nav-link text-light pl-4"
+            >Users</a
+          >
         </li>
         <li class="nav-item w-100">
-            <a href="#" class="nav-link text-light pl-4">Profile</a>
-          </li>
+          <a href="{% url 'profile'%}" class="nav-link text-light pl-4"
+            >Profile</a
+          >
+        </li>
         <li class="nav-item w-100">
-          <a href="profile" class="nav-link text-light pl-4">Logout</a>
+          <a href="{% url 'logout'%}" class="nav-link text-light pl-4"
+            >Logout</a
+          >
         </li>
         <!-- <li class="nav-item dropdown w-100">
                 <a href="#" class="nav-link dropdown-toggle text-light pl-4" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">Service</a>
@@ -56,10 +64,9 @@
                     <li><a href="#" class="dropdown-item text-light pl-4 p-2">Service 03</a></li>
                 </ul>
             </li> -->
-
       </ul>
     </nav>
-    <section class="p-4 my-container">
+    <section class="p-4 my-container active-cont">
       <button class="btn my-4" id="menu-btn">Toggle Sidebar</button>
       {% if messages %} {% for message in messages %}
       <div class="alert alert-{{ message.tags }}">{{ message }}</div>

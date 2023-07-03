@@ -5,8 +5,6 @@ from PIL import Image
 class Profile(models.Model):
     user =models.OneToOneField(User, on_delete=models.CASCADE)
     image= models.ImageField(default='default.jpeg',upload_to='profile_pics')
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-
     def __str__(self):
         return f'{self.user.username} Profile'
 
