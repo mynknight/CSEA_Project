@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import (PostListView,PostCreateView,
-                    PostDeleteView,create_folder,MyPostListView)
+from .views import (PostCreateView,download_file,
+                    PostDeleteView,create_folder,
+                    MyPostListView)
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -13,6 +14,8 @@ urlpatterns =[
     path('my_files/folder/create', create_folder,name='create_folder'),
     path('my_files/folder/create/<int:parent_folder_id>/',PostCreateView.as_view(template_name='root/add_file.html'),name='create_file_in_folder'),
     path('my_files/folder/create/folder/<int:parent_folder_id>/',create_folder,name='create_folder_in_folder'),
+    path('download/<str:file_path>/', download_file, name='download_file'),
+
 ]
 
 if settings.DEBUG:

@@ -5,7 +5,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from .forms import FolderForm
 from django.contrib.auth.decorators import login_required
-
+from django.http import FileResponse
+import os
 
 @login_required
 def create_folder(request, parent_folder_id=None):
@@ -75,3 +76,11 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.owner
+
+def download_file(request, file_path):
+    # Assuming file_path is the path to the file you want to download
+    file_name=os.path.basename(file_path)
+    file = open(file_path, 'rb')
+    response = FileResponse(file)
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(file_name)  # Set the desired filename
+    return response

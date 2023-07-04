@@ -12,11 +12,12 @@
     <h1>
       <a class="article-title" href="#">{{post.title}}</a>
     </h1>
-    <a class="article-content">{{ post.file|basename}}</a>
+    <a class="article-content">{{ post.file.name|basename}}</a>
 
     <form action="{% url 'delete_file' post.pk %}" method="POST">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger">Delete</button>
+      <a href="{% url 'download_file' post.file.path %}" class="btn btn-primary">Download</a>
     </form>
   </div>
 </article>
