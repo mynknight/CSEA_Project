@@ -49,7 +49,7 @@ class MyFileFolderView(TemplateView):
         context = super().get_context_data(**kwargs)
         folder_id=None
         folder_id = self.kwargs.get('parent_folder_id')
-
+        folderuser=None
         logged_user=None
         logged_user=self.kwargs.get('user_id')
 
@@ -77,6 +77,7 @@ class MyFileFolderView(TemplateView):
 
         context['files'] = files
         context['folders'] = folders
+        context['folderuser']=logged_user
         return context
 
 

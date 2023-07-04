@@ -16,13 +16,13 @@
 
     <form action="{% url 'delete_file' post.pk %}" method="POST">
       {% csrf_token %}
-      {% if requested.user == post.owner%}
+      {% if request.user == post.owner%}
       <button type="submit" class="btn btn-danger">Delete</button>
       <a href="{% url 'download_file' post.file.path %}" class="btn btn-primary"
         >Download</a
       >
       <button id="favorite-button">Favorite</button>
-      {%endif%}
+      {% endif %}
     </form>
   </div>
 </article>
@@ -38,7 +38,7 @@
 </article>
 {% endfor %}
 
-{% if parent_folder.owner == request.user %}
+{% if folderuser == request.user %}
 <h2>Create Folder</h2>
 <a href="{% url 'create_folder_in_folder' parent_folder_id%}" class="btn btn-primary">Create</a>
 
