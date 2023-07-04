@@ -13,15 +13,15 @@ Users are directed to a register on opening the website. After the registering, 
 
 # Tech Stacks Used
 
-. HTML
-. CSS
-. Django
-. Bootstrap
-. JavaScript
+*  HTML
+*  CSS
+*  Django
+*  Bootstrap
+* JavaScript
 
 # Key features
 
-. User can login and logout using any Email ID.
-. User can create or upload files and folders.
-. User can browse files and folders of other users.
-. User can download the files and folders.
+* User can login and logout using any Email ID.
+* User can create or upload files and folders.
+* User can browse files and folders of other users.
+* User can download the files and folders.
