@@ -1,5 +1,5 @@
-{% extends "root/base.html" %} {% load crispy_forms_tags %} {% block content %}
-{% for post in files %}
+{% extends "root/base.html" %} {% load custom_filters %}
+ {% load crispy_forms_tags %} {% block content %} {% for post in files %}
 <article class="media content-section">
   <img
     class="rounded-circle article-img"
@@ -12,7 +12,8 @@
     <h1>
       <a class="article-title" href="#">{{post.title}}</a>
     </h1>
-    <a class="article-content">{{post.file}}</a>
+    <a class="article-content">{{ post.file|basename}}</a>
+
     <form action="{% url 'delete_file' post.pk %}" method="POST">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger">Delete</button>
