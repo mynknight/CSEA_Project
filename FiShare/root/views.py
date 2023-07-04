@@ -22,7 +22,7 @@ def create_folder(request, parent_folder_id=None):
             return redirect('all_files')
     else:
         form = FolderForm()
-    return render(request, 'root/all_files.html', {'folderform': form})
+    return render(request, 'root/create_folder.html', {'folderform': form})
 
 
 @login_required
