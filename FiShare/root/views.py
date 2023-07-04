@@ -36,31 +36,30 @@ class MyPostListView(ListView):
     context_object_name='files'
     ordering=['-created_at']  
 
-# class MyFolderListView(ListView):
-#     model = Folder
-#     template_name = 'root/all_files.html'
-#     context_object_name = 'folders'
 
-#     def get_queryset(self):
-#         # Get the current user's folders with parent_folder as None
-#         queryset = super().get_queryset()
-#         queryset = queryset.filter(user=self.request.user, parent_folder=None)
-#         return queryset
- 
 class MyFileFolderView(TemplateView):
     template_name = 'root/all_files.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        # Get all the files and folders for the current user
-        files = AllFiles.objects.filter(owner=self.request.user)
-        folders = Folder.objects.filter(user=self.request.user, parent_folder=None)
-        
+
+        folder_id=None
+        folder_id = self.kwargs.get('parent_folder_id')
+
+        if folder_id:
+            files = AllFiles.objects.filter(owner=self.request.user,folder=folder_id)
+        else:
+            files = AllFiles.objects.filter(owner=self.request.user, folder=folder_id)
+
+        if folder_id:
+            folders = Folder.objects.filter(user=self.request.user, parent_folder=folder_id)
+        else:
+            folders = Folder.objects.filter(user=self.request.user, parent_folder=None)
+
+
         context['files'] = files
         context['folders'] = folders
         return context
-
 
 
 class PostListView(ListView):
@@ -79,15 +78,24 @@ class PostListView(ListView):
         return queryset
     
 
+from django.views.generic import CreateView
+from .models import AllFiles, Folder
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = AllFiles
     fields = ['title', 'file']
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        file = self.request.FILES.get('file')  # Get the uploaded file
+        file = self.request.FILES.get('file')
         if file:
-            form.instance.file = file  # Assign the uploaded file to the form's instance
+            form.instance.file = file
+
+        folder_id = self.kwargs.get('parent_folder_id')
+        if folder_id:
+            folder = Folder.objects.get(id=folder_id)
+            form.instance.folder = folder
+
         response = super().form_valid(form)
         return redirect(self.get_success_url())
 

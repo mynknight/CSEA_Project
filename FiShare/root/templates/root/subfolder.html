@@ -1,9 +1,5 @@
-{% extends "root/base.html" %} {% load crispy_forms_tags %} 
-{% load custom_filters %} {% block content %} 
-
-
-
-{% for post in files %}
+{% extends "root/base.html" %} {% load crispy_forms_tags %}
+ {% load custom_filters %} {% block content %} {% for post in files %}
 <article class="media content-section">
   <img
     class="rounded-circle article-img"
@@ -24,29 +20,27 @@
       <a href="{% url 'download_file' post.file.path %}" class="btn btn-primary"
         >Download</a
       >
-    <button id="favorite-button">Favorite</button>
+      <button id="favorite-button">Favorite</button>
     </form>
   </div>
 </article>
-{% endfor %}
-
-{% for post in folders %}
+{% endfor %} {% for post in folders %}
 <article class="media content-section">
   <div class="media-body">
     <h1>
-      <a class="article-title" href="{% url 'subfolder' post.id %}">{{post.name}}</a>
+      <a class="article-title" href="{% url 'subfolder' post.id %}"
+        >{{post.name}}</a
+      >
     </h1>
   </div>
 </article>
 {% endfor %}
 
-
-
 <h2>Create Folder</h2>
-<a href="{% url 'create_folder' %}" class="btn btn-primary">Create</a>
+<a href="{% url 'create_folder_in_folder' parent_folder_id%}" class="btn btn-primary">Create</a>
 
 <h2>Upload File</h2>
-<a href="{% url 'all_files_create' %}" class="btn btn-primary">Upload</a>
+<a href="{% url 'create_file_in_folder' parent_folder_id%}" class="btn btn-primary">Upload</a>
 
 <!-- 
 <script>

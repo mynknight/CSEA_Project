@@ -31,7 +31,6 @@ class AllFiles(models.Model):
     owner= models.ForeignKey(User, on_delete=models.CASCADE)
     title= models.CharField(max_length=100)
     file=models.FileField(upload_to='all_files/', default='')
-    caption=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True,)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True, blank=True)
     is_favorite = models.BooleanField(default=False)
