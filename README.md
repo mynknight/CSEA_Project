@@ -7,9 +7,9 @@ Users are directed to a register on opening the website. After the registering, 
 
 # Environment Setup
 
-. Install Django
-. Install all the required pacakges mentioned in the requirements.txt using the command pip install -r requirements.txt
-. Run the server and Connect the port to localhost:8000
+*  Install Django
+*  Install all the required pacakges mentioned in the requirements.txt using the command pip install -r requirements.txt
+*  Run the server and Connect the port to localhost:8000
 
 # Tech Stacks Used
 
