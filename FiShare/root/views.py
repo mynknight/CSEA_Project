@@ -20,7 +20,11 @@ def create_folder(request, parent_folder_id=None):
             folder.user = request.user  # Set the user for the folder
             folder.parent_folder = parent_folder 
             folder.save()
-            return redirect('all_files')
+            if parent_folder:
+                return redirect('subfolder',parent_folder_id=parent_folder.id)
+            else:
+                return redirect('all_files')
+
     else:
         form = FolderForm()
     return render(request, 'root/create_folder.html', {'folderform': form})
@@ -81,6 +85,8 @@ class PostListView(ListView):
 from django.views.generic import CreateView
 from .models import AllFiles, Folder
 
+from django.urls import reverse
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = AllFiles
     fields = ['title', 'file']
@@ -97,10 +103,18 @@ class PostCreateView(LoginRequiredMixin, CreateView):
             form.instance.folder = folder
 
         response = super().form_valid(form)
-        return redirect(self.get_success_url())
+        return response
 
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.owner
+        
     def get_success_url(self):
+        parent_folder_id = self.kwargs.get('parent_folder_id')
+        if parent_folder_id:
+            return reverse('subfolder', kwargs={'parent_folder_id': parent_folder_id})
         return reverse('all_files')
+   
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
