@@ -1,0 +1,10 @@
+{% extends "root/base.html" %} {% load crispy_forms_tags %} {% block content %}
+{% for post in files %}
+
+<h2>Create Folder</h2>
+<form method="POST">
+  {% csrf_token %} {{ folderform.as_p }}
+  <button type="submit">Create</button>
+</form>
+
+{% endblock content %}

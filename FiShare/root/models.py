@@ -18,6 +18,14 @@ import os
 #     for blog_post in instance.blogpost_set.all():
 #         delete_file(blog_post)
 
+class Folder(models.Model):
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    parent_folder = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+    
 
 class AllFiles(models.Model):
     owner= models.ForeignKey(User, on_delete=models.CASCADE)
@@ -25,6 +33,8 @@ class AllFiles(models.Model):
     file=models.FileField(upload_to='all_files/', default='')
     caption=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True,)
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True, blank=True)
+
 
     def __str__(self):
         return self.title
@@ -38,9 +48,3 @@ class AllFiles(models.Model):
         super().delete(*args, **kwargs)
 
 
-class Folder(models.Model):
-    name = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name

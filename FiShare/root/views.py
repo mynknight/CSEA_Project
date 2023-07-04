@@ -1,11 +1,31 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import (ListView,CreateView,DeleteView)
-from .models import AllFiles
+from .models import AllFiles,Folder
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import redirect
 from django.urls import reverse
+from .forms import FolderForm
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
+def create_folder(request, parent_folder_id=None):
+    parent_folder=None
+    if parent_folder_id:
+        parent_folder = Folder.objects.get(id=parent_folder_id)
+    if request.method == 'POST':
+        form = FolderForm(request.POST)
+        if form.is_valid():
+            folder = form.save(commit=False)
+            folder.user = request.user  # Set the user for the folder
+            folder.parent_folder = parent_folder 
+            folder.save()
+            return redirect('all_files')
+    else:
+        form = FolderForm()
+    return render(request, 'root/all_files.html', {'folderform': form})
+
+
+@login_required
 def home(request):
 	return render(request, 'root/home.html',{'file': AllFiles.objects.all()} )
 
