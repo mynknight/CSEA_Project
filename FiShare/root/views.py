@@ -21,7 +21,7 @@ def create_folder(request, parent_folder_id=None):
             folder.parent_folder = parent_folder 
             folder.save()
             if parent_folder:
-                return redirect('subfolder',parent_folder_id=parent_folder.id)
+                return redirect('subfolder',parent_folder_id=parent_folder_id)
             else:
                 return redirect('all_files')
 
