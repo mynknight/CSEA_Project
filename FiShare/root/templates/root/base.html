@@ -37,7 +37,9 @@
           <a href="{% url 'home'%}" class="nav-link text-light pl-4">Home</a>
         </li>
         <li class="nav-item w-100">
-          <a href="{% url 'all_files'%}" class="nav-link text-light pl-4"
+          <a
+            href="{% url 'user_repo' request.user.id%}"
+            class="nav-link text-light pl-4"
             >My Files</a
           >
         </li>

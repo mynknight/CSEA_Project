@@ -13,19 +13,8 @@
       <a class="article-title" href="#">{{post.title}}</a>
     </h1>
     <a class="article-content">{{post.file}}</a>
-    <form action="{% url 'delete_file' post.pk %}" method="POST">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-danger">Delete</button>
-    </form>
   </div>
 </article>
 
 {% endfor %}
-
-<h2>Create Folder</h2>
-<form method="POST">
-  {% csrf_token %} {{ folderform|crispy }}
-  <button type="submit">Create</button>
-</form>
-
 {% endblock content %}

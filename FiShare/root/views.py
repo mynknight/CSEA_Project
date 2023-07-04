@@ -36,6 +36,16 @@ class PostListView(ListView):
     context_object_name='files'
     ordering=['-created_at']
 
+    def get_queryset(self):
+        # Get the user_id from the URL parameter
+        user_id = self.kwargs['user_id']
+
+        # Filter the files based on the user_id
+        queryset = super().get_queryset().filter(owner_id=user_id)
+
+        return queryset
+    
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = AllFiles
     fields = ['title', 'file']

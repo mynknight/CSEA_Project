@@ -4,7 +4,7 @@ from django.urls import path,include
 from users import views as users_view
 from django.conf.urls.static import static
 from django.conf import settings
-
+from root.views import PostListView
 
 
 urlpatterns = [
@@ -14,6 +14,7 @@ urlpatterns = [
     path('register/', users_view.register, name='register'),
     path('profile/', users_view.profile, name='profile'),
     path('all_users/', users_view.user_list, name='all_users'),
+    path('all_users/<int:user_id>', PostListView.as_view(template_name='root/user_repo.html'),name='user_repo'),
     path('', include('root.urls')),
 ]
 
