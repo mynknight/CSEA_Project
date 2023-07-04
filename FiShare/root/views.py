@@ -29,10 +29,16 @@ def create_folder(request, parent_folder_id=None):
 def home(request):
 	return render(request, 'root/home.html',{'file': AllFiles.objects.all()} )
 
+class MyPostListView(ListView):
+    model=AllFiles
+    template_name='root/all_files.html'
+    context_object_name='files'
+    ordering=['-created_at']  
+
 
 class PostListView(ListView):
     model=AllFiles
-    template_name='root/all_files.html'
+    template_name='root/user_repo.html'
     context_object_name='files'
     ordering=['-created_at']
 
