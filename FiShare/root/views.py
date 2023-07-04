@@ -43,22 +43,36 @@ class MyPostListView(ListView):
 
 class MyFileFolderView(TemplateView):
     template_name = 'root/all_files.html'
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         folder_id=None
         folder_id = self.kwargs.get('parent_folder_id')
 
-        if folder_id:
-            files = AllFiles.objects.filter(owner=self.request.user,folder=folder_id)
+        logged_user=None
+        logged_user=self.kwargs.get('user_id')
+
+        if logged_user:
+            logged_user=self.kwargs.get('user_id')
+
+        elif folder_id:
+            folderuser=Folder.objects.get(id=folder_id)
+            logged_user=folderuser.user
+
         else:
-            files = AllFiles.objects.filter(owner=self.request.user, folder=folder_id)
+            logged_user=self.request.user    
+
 
         if folder_id:
-            folders = Folder.objects.filter(user=self.request.user, parent_folder=folder_id)
+            files = AllFiles.objects.filter(owner=logged_user,folder=folder_id)
         else:
-            folders = Folder.objects.filter(user=self.request.user, parent_folder=None)
+            files = AllFiles.objects.filter(owner=logged_user, folder=folder_id)
+
+        if folder_id:
+            folders = Folder.objects.filter(user=logged_user, parent_folder=folder_id)
+        else:
+            folders = Folder.objects.filter(user=logged_user, parent_folder=None)
 
 
         context['files'] = files
@@ -68,7 +82,6 @@ class MyFileFolderView(TemplateView):
 
 class PostListView(ListView):
     model=AllFiles
-    template_name='root/user_repo.html'
     context_object_name='files'
     ordering=['-created_at']
 
