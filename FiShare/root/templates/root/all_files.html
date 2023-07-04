@@ -1,5 +1,9 @@
-{% extends "root/base.html" %} {% load custom_filters %}
- {% load crispy_forms_tags %} {% block content %} {% for post in files %}
+{% extends "root/base.html" %} {% load crispy_forms_tags %} 
+{% load custom_filters %} {% block content %} 
+
+
+
+{% for post in files %}
 <article class="media content-section">
   <img
     class="rounded-circle article-img"
@@ -17,17 +21,71 @@
     <form action="{% url 'delete_file' post.pk %}" method="POST">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger">Delete</button>
-      <a href="{% url 'download_file' post.file.path %}" class="btn btn-primary">Download</a>
+      <a href="{% url 'download_file' post.file.path %}" class="btn btn-primary"
+        >Download</a
+      >
+    <button id="favorite-button">Favorite</button>
     </form>
   </div>
 </article>
-
 {% endfor %}
 
+
+
+{% for post in folders %}
+<article class="media content-section">
+  <div class="media-body">
+    <h1>
+      <a class="article-title" href="#">{{post.name}}</a>
+    </h1>
+  </div>
+</article>
+{% endfor %}
+
+
+
 <h2>Create Folder</h2>
-<form method="POST">
-  {% csrf_token %} {{ folderform|crispy }}
-  <button type="submit">Create</button>
-</form>
+<a href="{% url 'create_folder' %}" class="btn btn-primary">Go to Link</a>
+
+<!-- 
+<script>
+  // Assuming you have a button with id "favoriteButton" and a data attribute "fileId" containing the file ID
+
+  // Attach a click event handler to the favorite button
+  $("#favorite-Button").on("click", function () {
+    // Get the file ID from the data attribute
+    var fileId = $(this).data("fileId");
+
+    // Send an AJAX POST request
+    $.ajax({
+      url: "/favorite/" + fileId + "/", // The URL for the favorite toggle view
+      type: "POST",
+      dataType: "json",
+      success: function (data) {
+        // Handle the success response
+        // Update the button appearance based on the favorite status
+        if (data.is_favorite) {
+          // File is marked as favorite
+          $("#favoriteButton").addClass("favorite");
+        } else {
+          // File is not marked as favorite
+          $("#favoriteButton").removeClass("favorite");
+        }
+      },
+      error: function (xhr, status, error) {
+        // Handle the error response
+        console.log(error);
+      },
+    });
+  });
+</script> -->
+
+<!-- <script>
+  $(document).ready(function () {
+    $("#favorite-button").click(function () {
+      $(this).toggleClass("clicked");
+    });
+  });
+</script> -->
 
 {% endblock content %}

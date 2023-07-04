@@ -34,7 +34,7 @@ class AllFiles(models.Model):
     caption=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True,)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True, blank=True)
-
+    is_favorite = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import (ListView,CreateView,DeleteView)
+from django.views.generic import (ListView,CreateView,DeleteView,TemplateView)
 from .models import AllFiles,Folder
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
@@ -35,6 +35,32 @@ class MyPostListView(ListView):
     template_name='root/all_files.html'
     context_object_name='files'
     ordering=['-created_at']  
+
+# class MyFolderListView(ListView):
+#     model = Folder
+#     template_name = 'root/all_files.html'
+#     context_object_name = 'folders'
+
+#     def get_queryset(self):
+#         # Get the current user's folders with parent_folder as None
+#         queryset = super().get_queryset()
+#         queryset = queryset.filter(user=self.request.user, parent_folder=None)
+#         return queryset
+ 
+class MyFileFolderView(TemplateView):
+    template_name = 'root/all_files.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Get all the files and folders for the current user
+        files = AllFiles.objects.filter(owner=self.request.user)
+        folders = Folder.objects.filter(user=self.request.user, parent_folder=None)
+        
+        context['files'] = files
+        context['folders'] = folders
+        return context
+
 
 
 class PostListView(ListView):
@@ -84,3 +110,4 @@ def download_file(request, file_path):
     response = FileResponse(file)
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(file_name)  # Set the desired filename
     return response
+
