@@ -18,11 +18,11 @@
       {% csrf_token %}
       {% if request.user == post.owner%}
       <button type="submit" class="btn btn-danger">Delete</button>
-      <a href="{% url 'download_file' post.file.path %}" class="btn btn-primary"
-        >Download</a
-      >
       <button id="favorite-button">Favorite</button>
       {% endif %}
+      <a href="{% url 'download_file' post.file.path %}" class="btn btn-primary"
+      >Download</a
+    >
     </form>
   </div>
 </article>
@@ -34,6 +34,9 @@
         >{{post.name}}</a
       >
     </h1>
+    <a href="{% url 'download_folder' post.id %}" class="btn btn-primary"
+    >Download</a>
+
   </div>
 </article>
 {% endfor %}

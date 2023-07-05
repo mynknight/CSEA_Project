@@ -22,12 +22,11 @@
       {% csrf_token %}
       {% if request.user == post.owner %}
       <button type="submit" class="btn btn-danger">Delete</button>
-      <a href="{% url 'download_file' post.file.path %}" class="btn btn-primary"
-        >Download</a
-      >
     <button id="favorite-button">Favorite</button>
     {% endif %}
     </form>
+    <a href="{% url 'download_file' post.file.path %}" class="btn btn-primary"
+    >Download</a>
   </div>
 </article>
 {% endfor %}
