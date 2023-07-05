@@ -1,12 +1,17 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import (ListView,CreateView,DeleteView,TemplateView)
 from .models import AllFiles,Folder
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from .forms import FolderForm
 from django.contrib.auth.decorators import login_required
-from django.http import FileResponse
-import os
+from django.http import FileResponse,HttpResponse
+import os,io
+import shutil
+import zipfile
+from django.utils.text import slugify
+
+
 
 @login_required
 def create_folder(request, parent_folder_id=None):
@@ -33,12 +38,6 @@ def create_folder(request, parent_folder_id=None):
 @login_required
 def home(request):
 	return render(request, 'root/home.html',{'file': AllFiles.objects.all()} )
-
-class MyPostListView(ListView):
-    model=AllFiles
-    template_name='root/all_files.html'
-    context_object_name='files'
-    ordering=['-created_at']  
 
 
 class MyFileFolderView(TemplateView):
@@ -67,7 +66,7 @@ class MyFileFolderView(TemplateView):
         if folder_id:
             files = AllFiles.objects.filter(owner=logged_user,folder=folder_id)
         else:
-            files = AllFiles.objects.filter(owner=logged_user, folder=folder_id)
+            files = AllFiles.objects.filter(owner=logged_user, folder=None)
 
         if folder_id:
             folders = Folder.objects.filter(user=logged_user, parent_folder=folder_id)
@@ -96,10 +95,6 @@ class PostListView(ListView):
         return queryset
     
 
-from django.views.generic import CreateView
-from .models import AllFiles, Folder
-
-from django.urls import reverse
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = AllFiles
@@ -139,6 +134,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         post = self.get_object()
         return self.request.user == post.owner
 
+
 def download_file(request, file_path):
     # Assuming file_path is the path to the file you want to download
     file_name=os.path.basename(file_path)
@@ -147,3 +143,65 @@ def download_file(request, file_path):
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(file_name)  # Set the desired filename
     return response
 
+
+
+def download_folder(request,pk):
+    folder = get_object_or_404(Folder, pk=pk)
+    folder_name = folder.name
+    zip_subdir = folder_name
+    zip_filename = zip_subdir + ".zip"
+    byte_stream = io.BytesIO()
+    zf = zipfile.ZipFile(byte_stream, "w")
+
+    folder_list = Folder.objects.filter(parent_folder=folder)
+    file_list = AllFiles.objects.filter(folder=folder)
+
+    zf = zip_them_all(file_list,folder_list,zip_subdir,zf)
+
+    zf.close()
+    response = HttpResponse(byte_stream.getvalue(), content_type="application/x-zip-compressed")
+    response['Content-Disposition'] = 'attachment; filename=%s' % zip_filename
+    return response
+
+def zip_them_all(file_list,folder_list,zip_path,zf):
+    for p in file_list:
+        item = p
+        file_name, file_extension = os.path.splitext(item.file.file.name)
+        file_extension = file_extension[1:]
+        x = -1*len(file_extension)
+        response = HttpResponse(item.file.file,
+            content_type = "file/%s" % file_extension)
+        response["Content-Disposition"] = "attachment;"\
+            "filename=%s.%s" %(slugify(item.title)[:x], file_extension)
+
+        filename = slugify(item.title)[:x]
+        filename = filename + "." + file_extension
+        f1 = open(filename , 'wb')
+        f1.write(response.content)
+        f1.close()
+
+        pa = os.path.join(zip_path,filename)
+        zf.write(filename,pa, zipfile.ZIP_DEFLATED)
+
+
+    for p in file_list:
+        item = p
+        file_name, file_extension = os.path.splitext(item.file.file.name)
+        file_extension = file_extension[1:]
+        x = -1*len(file_extension)
+        filename = slugify(item.title)[:x]
+        filename = filename + "." + file_extension
+
+        location = os.path.abspath(filename)
+        os.remove(location)
+
+
+    for p in folder_list:
+        dir = p.name
+        z_path = os.path.join(zip_path, dir)
+        fo_list = Folder.objects.filter(parent_folder=p)
+        fi_list = AllFiles.objects.filter(folder=p)
+        zf = zip_them_all(fi_list,fo_list,z_path,zf)
+
+
+    return zf

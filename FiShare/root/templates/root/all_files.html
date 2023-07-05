@@ -38,6 +38,14 @@
     <h1>
       <a class="article-title" href="{% url 'subfolder' post.id %}">{{post.name}}</a>
     </h1>
+    <a href="{% url 'download_folder' post.id %}" class="btn btn-primary"
+    >Download</a>
+
+    <form action="{% url 'delete_file' post.pk %}" method="POST">
+      {% csrf_token %}
+      <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
+    <button id="favorite-button">Favorite</button>
+    </form>
   </div>
 </article>
 {% endfor %}
