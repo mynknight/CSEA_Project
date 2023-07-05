@@ -2,7 +2,7 @@ from django.urls import path,include
 from users import views as users_view
 from django.conf.urls.static import static
 from django.conf import settings
-from root.views import PostListView,MyFileFolderView
+from root.views import MyFileFolderView
 
 
 urlpatterns = [
