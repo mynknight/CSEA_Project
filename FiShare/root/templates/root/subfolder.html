@@ -3,10 +3,34 @@
 {%block favourite%}
 {% if folderuser == request.user %}
 <h2>Create Folder</h2>
-<a href="{% url 'create_folder_in_folder' parent_folder_id%}" class="btn btn-primary">Create</a>
-
-<h2>Upload File</h2>
-<a href="{% url 'create_file_in_folder' parent_folder_id%}" class="btn btn-primary">Upload</a>
+<div style="position: fixed; top: 20px; right: 20px;">
+    <details class="dropdown action-buttons" style=" 
+      --button-background: rgb(65, 160, 255);
+      --button-color: white;
+      
+      --dropdown-highlight: dodgerblue;
+      --dropdown-width: 160px;
+      --dropdown-background: rgb(0, 208, 255);
+      --dropdown-color: rgb(255, 255, 255);
+    
+    
+    
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* min-height: 100vh; */
+      background-color: #ffffff;
+    ">
+      <summary role="button">
+        <a class="button" style="text-decoration: none;">Edit</a>
+      </summary>
+      <ul>
+        <li><a href="{% url 'create_folder' %}">Create Folder</a></li>
+        <li><a href="{% url 'all_files_create' %}">Upload File</a></li>
+        <li><a href="{% url 'folder-upload-index' %}">Upload Folder</a></li>
+    </ul>
+    </details>
+    </div>
 {% endif %}
 {%endblock favourite%}
 

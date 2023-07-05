@@ -1,52 +1,55 @@
-{% extends "root/home_base.html" %} 
+{% extends "root/home_base.html" %}
+{% load static %}
 
-{%block favourite%}
+{% block favourite %}
+<!-- <div class="dropdown action-buttons" >
+  <button class="btn btn-primary dropdown-toggle" type="button" id="actionDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Actions
+  </button>
+  <div class="dropdown-menu" aria-labelledby="actionDropdownButton">
+    <a href="{% url 'create_folder' %}" class="dropdown-item" style="background-color: #00a2ff;">Create Folder</a>
+    <a href="{% url 'all_files_create' %}" class="dropdown-item">Upload File</a>
+    <a href="{% url 'folder-upload-index' %}" class="dropdown-item">Upload Folder</a>
+  </div>
+</div> -->
 
-<h2>Create Folder</h2>
-<a href="{% url 'create_folder' %}" class="btn btn-primary">Create</a>
+<div style="position: fixed; top: 20px; right: 20px;">
+<details class="dropdown action-buttons" style=" 
+  --button-background: rgb(65, 160, 255);
+  --button-color: white;
+  
+  --dropdown-highlight: dodgerblue;
+  --dropdown-width: 160px;
+  --dropdown-background: rgb(0, 208, 255);
+  --dropdown-color: rgb(255, 255, 255);
 
-<h2>Upload File</h2>
-<a href="{% url 'all_files_create' %}" class="btn btn-primary">Upload</a>
 
-<!-- 
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  background-color: #ffffff;
+">
+  <summary role="button">
+    <a class="button" style="text-decoration: none;">Edit</a>
+  </summary>
+  <ul>
+    <li><a href="{% url 'create_folder' %}">Create Folder</a></li>
+    <li><a href="{% url 'all_files_create' %}">Upload File</a></li>
+    <li><a href="{% url 'folder-upload-index' %}">Upload Folder</a></li>
+</ul>
+</details>
+</div>
+
+{% endblock favourite %} 
+
+{% block homescript %}
 <script>
-  // Assuming you have a button with id "favoriteButton" and a data attribute "fileId" containing the file ID
-
-  // Attach a click event handler to the favorite button
-  $("#favorite-Button").on("click", function () {
-    // Get the file ID from the data attribute
-    var fileId = $(this).data("fileId");
-
-    // Send an AJAX POST request
-    $.ajax({
-      url: "/favorite/" + fileId + "/", // The URL for the favorite toggle view
-      type: "POST",
-      dataType: "json",
-      success: function (data) {
-        // Handle the success response
-        // Update the button appearance based on the favorite status
-        if (data.is_favorite) {
-          // File is marked as favorite
-          $("#favoriteButton").addClass("favorite");
-        } else {
-          // File is not marked as favorite
-          $("#favoriteButton").removeClass("favorite");
-        }
-      },
-      error: function (xhr, status, error) {
-        // Handle the error response
-        console.log(error);
-      },
-    });
-  });
-</script> -->
-
-<!-- <script>
   $(document).ready(function () {
-    $("#favorite-button").click(function () {
+    $(".favorite-button").click(function () {
       $(this).toggleClass("clicked");
     });
   });
-</script> -->
-
-{% endblock favourite %}
+</script>
+{% endblock homescript %}

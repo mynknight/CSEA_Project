@@ -1,7 +1,3 @@
-
-
-
-
 {% extends "root/base.html" %}
 {% load crispy_forms_tags %}
 
@@ -10,12 +6,12 @@
 <div class="formcontainer">
   <div class="card">
     <div class="card-header">
-      <h2 class="card-title">Create Folder</h2>
+      <h2 class="card-title">Upload Folder</h2>
     </div>
     <div class="card-body">
       <form method="POST">
         {% csrf_token %}
-        {{ folderform.as_p }}
+        {{ form|crispy }}
 
         <div class="text-center">
           <button class="btn btn-primary" type="submit">Create</button>

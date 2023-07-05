@@ -3,9 +3,10 @@ from django.views.generic import (CreateView,DeleteView,TemplateView)
 from .models import AllFiles,Folder
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
-from .forms import FolderForm
+from .forms import FolderForm, FolderUploadForm
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import FileResponse,HttpResponse
+from django.http import FileResponse,HttpResponse,HttpResponseRedirect
 import os,io
 import shutil
 import zipfile
@@ -43,7 +44,7 @@ def home(request):
         'files': favorite_files,
         'folders': favorite_folders,
     }
-    return render(request, 'root/home.html',context )
+    return render(request, 'root/all_files.html',context )
 
 
 
@@ -74,6 +75,78 @@ def download_folder(request,pk):
     response = HttpResponse(byte_stream.getvalue(), content_type="application/x-zip-compressed")
     response['Content-Disposition'] = 'attachment; filename=%s' % zip_filename
     return response
+
+
+def FolderUpload(request,pk):
+    if request.method == 'POST':
+        form = FolderUploadForm(request.POST, request.FILES)
+
+        p = request.POST['path']
+        print(p)
+        print(p,1)
+        file_path_list = []
+        t = ""
+        for i in range(len(p)):
+            if p[i]!=",":
+                t = t+p[i]
+            else:
+                file_path_list.append(t)
+                t = ""
+
+        pathlist_list = []
+
+        for path in file_path_list:
+            t = ""
+            list = []
+            for i in range(len(path)):
+                if path[i]!='/':
+                    t = t + path[i]
+                else:
+                    list.append(t)
+                    t = ""
+            pathlist_list.append(list)
+
+        for path in pathlist_list:
+            for i in range(len(path)):
+                if i==0:
+                    try:
+                        link = Folder.objects.get(pk=pk)
+                        fol = Folder.objects.get(parent_folder=link,name=path[i])
+                    except Folder.DoesNotExist:
+                        new_folder = Folder(name=path[i],parent_folder=link,user=request.user)
+                        new_folder.save()
+                        path[i] = new_folder
+                    else:
+                        path[i] = fol
+                else:
+                    try:
+                        fol = Folder.objects.get(parent_folder=path[i-1],name=path[i])
+                    except Folder.DoesNotExist:
+                        new_folder = Folder(name=path[i],parent_folder=path[i-1],user=request.user)
+                        new_folder.save()
+                        path[i] = new_folder
+                    else:
+                        path[i] = fol
+
+
+        if form.is_valid():
+            index = 0
+            for field in request.FILES.keys():
+                for formfile in request.FILES.getlist(field):
+                    pa = pathlist_list[index]
+
+
+                    folder = pa[len(pa)-1]
+
+                    f = AllFiles(file=formfile,user=request.user,folder=folder )
+                    f.name = f.filename()
+                    f.save()
+                    index = index+1
+
+        return redirect('home',pk)
+    else:
+        form = FolderUploadForm(None)
+        return render(request,'root/folder_upload.html',{'form':form})
 
 
 def zip_them_all(file_list,folder_list,zip_path,zf):
@@ -119,6 +192,96 @@ def zip_them_all(file_list,folder_list,zip_path,zf):
 
     return zf
 
+def FolderUploadIndex(request):
+    if request.method == 'POST':
+        form = FolderUploadForm(request.POST, request.FILES)
+        p = request.POST.get('path', '')
+        file_path_list = []
+        t = ""
+        for i in range(len(p)):
+            if p[i]!=",":
+                t = t+p[i]
+            else:
+                file_path_list.append(t)
+                t = ""
+
+        pathlist_list = []
+
+        for path in file_path_list:
+            t = ""
+            list = []
+            for i in range(len(path)):
+                if path[i]!='/':
+                    t = t + path[i]
+                else:
+                    list.append(t)
+                    t = ""
+            pathlist_list.append(list)
+
+        for path in pathlist_list:
+            for i in range(len(path)):
+                if i==0:
+                    try:
+                        fol = Folder.objects.get(parent_folder=None,name=path[i],user=request.user)
+                    except Folder.DoesNotExist:
+                        new_folder = Folder(name=path[i],user=request.user)
+                        new_folder.save()
+                        path[i] = new_folder
+                    else:
+                        path[i] = fol
+                else:
+                    try:
+                        fol = Folder.objects.get(parent_folder=path[i-1],name=path[i])
+                    except Folder.DoesNotExist:
+                        new_folder = Folder(name=path[i],parent_folder=path[i-1],user=request.user)
+                        new_folder.save()
+                        path[i] = new_folder
+                    else:
+                        path[i] = fol
+
+
+        if form.is_valid():
+            index = 0
+            for field in request.FILES.keys():
+                for formfile in request.FILES.getlist(field):
+                    pa = pathlist_list[index]
+                    folder = pa[len(pa)-1]
+                    f = AllFiles(file=formfile,user=request.user,folder=folder )
+                    f.name = f.filename()
+                    f.save()
+                    index = index+1
+
+        return redirect('home')
+    else:
+        form = FolderUploadForm(None)
+        return render(request,'root/folder_upload.html',{'form':form})
+
+
+
+def toggle_favorite(request, model, pk):
+    # if request.method == 'POST':
+        # print(get_object_or_404(AllFiles, pk=pk))
+        if model == 'File':
+            item = get_object_or_404(AllFiles, pk=pk)
+        elif model == 'Folder':
+            item = get_object_or_404(Folder, pk=pk)
+        else:
+            return reverse('home')
+        # print(item)
+        # Toggle the 'is_favourite' field
+        item.is_favorite = not item.is_favorite
+        item.save()
+
+        if item.is_favorite:
+            messages.success(request, 'Added to favorites')
+        else:
+            messages.success(request, 'Removed from favorites')
+
+        # Redirect back to the referring page
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    # Redirect back to the referring page
+    # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 class MyFileFolderView(TemplateView):
     template_name = 'root/all_files.html'

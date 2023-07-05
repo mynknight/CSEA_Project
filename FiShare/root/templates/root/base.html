@@ -16,12 +16,18 @@
       integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <!-- custom css -->
     <link
       rel="stylesheet"
       type="text/css"
       href="{% static 'root/home.css' %}"
     />
+  
   </head>
 
   <body>
@@ -79,6 +85,11 @@
       integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
       crossorigin="anonymous"
     ></script>
+    
+    <script src="https://kit.fontawesome.com/f2acf4a52a.js" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script
       src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js"
       integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d"
@@ -94,5 +105,9 @@
         container.classList.toggle("active-cont");
       });
     </script>
+
+    {% block script %}
+    
+    {% endblock script %}
   </body>
 </html>

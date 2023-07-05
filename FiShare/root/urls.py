@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import (PostCreateView,download_file,
-                    FileDelete,create_folder,
-                    MyFileFolderView,home,
-                    download_folder,FolderDelete)
+from .views import (PostCreateView,download_file,FileDelete,create_folder,
+                    MyFileFolderView,home,download_folder,FolderDelete, 
+                    toggle_favorite, FolderUpload, FolderUploadIndex)
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -19,6 +18,9 @@ urlpatterns =[
     path('download/file/<str:file_path>/', download_file, name='download_file'),
     path('download/folder/<int:pk>/', download_folder, name='download_folder'),
     path('delete/folder/<int:pk>/', FolderDelete.as_view(), name='delete_folder'),
+    path('toggle_favorite/<str:model>/<int:pk>/', toggle_favorite , name='toggle_favorite'),
+    path('folder_upload/<int:pk>/', FolderUpload, name='folder_upload'),
+    path('folder_upload_index/', FolderUploadIndex, name='folder-upload-index'),
 ]
 
 if settings.DEBUG:
