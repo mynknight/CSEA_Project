@@ -22,6 +22,7 @@ class Folder(models.Model):
     name = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     parent_folder = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    is_favorite = models.BooleanField(default=False)
     
     def __str__(self):
         return self.name

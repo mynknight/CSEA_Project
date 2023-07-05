@@ -8,7 +8,7 @@ from django.conf import settings
 
 
 urlpatterns =[
-    path('',home,name='home'),
+    path('',home ,name='home'),
     path('my_files/',MyFileFolderView.as_view(),name='all_files'),
     path('my_files/new/',PostCreateView.as_view(template_name='root/add_file.html'),name='all_files_create'),
     path('my_files/<int:pk>/delete/', FileDelete.as_view(), name='delete_file'),
@@ -19,8 +19,6 @@ urlpatterns =[
     path('download/file/<str:file_path>/', download_file, name='download_file'),
     path('download/folder/<int:pk>/', download_folder, name='download_folder'),
     path('delete/folder/<int:pk>/', FolderDelete.as_view(), name='delete_folder'),
-
-
 ]
 
 if settings.DEBUG:

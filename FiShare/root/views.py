@@ -37,7 +37,13 @@ def create_folder(request, parent_folder_id=None):
 
 @login_required
 def home(request):
-	return render(request, 'root/home.html',{'file': AllFiles.objects.all()} )
+    favorite_files = AllFiles.objects.filter(is_favorite=True,folder=None)
+    favorite_folders = Folder.objects.filter(is_favorite=True, parent_folder=None)
+    context = {
+        'files': favorite_files,
+        'folders': favorite_folders,
+    }
+    return render(request, 'root/home.html',context )
 
 
 
@@ -215,20 +221,4 @@ class FolderDelete(DeleteView):
   def get(self, *args, **kwargs):
             return self.post(*args, **kwargs)
 
-
-
-# class PostListView(ListView):
-#     model=AllFiles
-#     context_object_name='files'
-#     ordering=['-created_at']
-
-#     def get_queryset(self):
-#         # Get the user_id from the URL parameter
-#         user_id = self.kwargs['user_id']
-
-#         # Filter the files based on the user_id
-#         queryset = super().get_queryset().filter(owner_id=user_id)
-
-#         return queryset
-    
 
