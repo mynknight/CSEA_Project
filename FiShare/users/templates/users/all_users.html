@@ -1,6 +1,8 @@
-{% extends "root/base.html" %} {% block content %} {% for user in users %}
-
-<div class="card">
+{% extends "root/base.html" %} 
+{% block content %}
+<div class="user-card-container">
+  {% for user in users %}
+  <div class="card" style="margin: 0%; margin-bottom: 5%; ">
     <div class="card-body">
       <div class="media">
         <img class="account-img" src="{{user.profile.image.url}}">
@@ -11,6 +13,6 @@
       </div>
     </div>
   </div>
-  
-  {% endfor %} {% endblock content %}
+  {% endfor %}
 </div>
+{% endblock content %}
