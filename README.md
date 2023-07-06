@@ -26,4 +26,4 @@ Users are directed to a register on opening the website. After the registering, 
 * User can browse files and folders of other users.
 * User can download the files and folders.
 
-  [image] [  https://github.com/mynknight/CSEA_Project/blob/darshan_patni/Homepage.jpg ]
+  [image] [Homepage.jpg]
