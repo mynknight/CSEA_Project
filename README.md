@@ -27,3 +27,8 @@ Users are directed to a register on opening the website. After the registering, 
 * User can download the files and folders.
 
  ![Other User repo](https://github.com/mynknight/CSEA_Project/assets/95132151/81492d45-692a-444a-9415-a48192d495e9)
+ ![Homepage](https://github.com/mynknight/CSEA_Project/assets/95132151/b10743d9-7808-49c7-8b1a-835e6836cca2)
+![My Files](https://github.com/mynknight/CSEA_Project/assets/95132151/56b23ec8-b943-4fa0-bc11-ef2823bf2261)
+![Profile Page](https://github.com/mynknight/CSEA_Project/assets/95132151/b8fa6ac4-1ec1-434f-ae66-667b7d01ee25)
+![User Page](https://github.com/mynknight/CSEA_Project/assets/95132151/6e22aaf8-7ec3-41e4-9a78-67f189819e81)
+
