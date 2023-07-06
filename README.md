@@ -24,32 +24,32 @@ Users are directed to a register on opening the website. After the registering, 
 * User can login and logout using any Email ID.
 * User can create or upload files and folders.
 * User can browse files and folders of other users.
-* User can download the files and folders.
-* Users can also keep the files and floders they are intreseted as favorites for easier access.
+* User can download the files and folders of theirs and other users also.
+* Users can also keep the files and folders they are interested as favorites and can access them on Homepage.
 
 # Register Page
 * The user has to register when he uses the website for the first time.He can register with any of his Email ID.
-![Register]![image](https://github.com/mynknight/CSEA_Project/assets/109480688/c510353e-c423-4bf0-8e64-4ea7516fd73b)
+![image](https://github.com/mynknight/CSEA_Project/assets/109480688/c510353e-c423-4bf0-8e64-4ea7516fd73b)
 
 
 # Login Page
 * The web application is authenticated and a user must sign in using his username created in Register Page.
-![Login]![login](https://github.com/mynknight/CSEA_Project/assets/109480688/be5b8825-88c2-4a5d-be35-9e163525f329)
+![login](https://github.com/mynknight/CSEA_Project/assets/109480688/be5b8825-88c2-4a5d-be35-9e163525f329)
 
 
 # Home Page
 * After login the home page is displayed, where user can see his favorite files and folders.
-![Homepage]![homepage](https://github.com/mynknight/CSEA_Project/assets/109480688/6f63ea0e-9884-4ed9-98f6-753a8d8f9be1)
+![homepage](https://github.com/mynknight/CSEA_Project/assets/109480688/6f63ea0e-9884-4ed9-98f6-753a8d8f9be1)
 
 
 # My Files Page
 * In the side navigation bar we can see 'My files', where user can the files and folders uploaded by him.
-![My Files]![Screenshot 2023-07-06 125448](https://github.com/mynknight/CSEA_Project/assets/109480688/c6d161b6-68b7-42e1-adc6-bc7b7e7e501d)
+![Screenshot 2023-07-06 125448](https://github.com/mynknight/CSEA_Project/assets/109480688/c6d161b6-68b7-42e1-adc6-bc7b7e7e501d)
 
 
 # My profile Page
 * In the side navigation bar we can see 'My Profile Page', where user can see or update his profile.
-![Profile Page]![Screenshot 2023-07-06 125609](https://github.com/mynknight/CSEA_Project/assets/109480688/66122df5-c887-4fe5-81d9-1b7317e0f4b7)
+![Screenshot 2023-07-06 125609](https://github.com/mynknight/CSEA_Project/assets/109480688/66122df5-c887-4fe5-81d9-1b7317e0f4b7)
 
 
 # All Users Page
