@@ -29,30 +29,36 @@ Users are directed to a register on opening the website. After the registering, 
 
 # Register Page
 * The user has to register when he uses the website for the first time.He can register with any of his Email ID.
-![Register](https://github.com/mynknight/CSEA_Project/assets/95132151/8e30d725-311f-483d-b199-32550c5a1a04)
+![Register]![image](https://github.com/mynknight/CSEA_Project/assets/109480688/c510353e-c423-4bf0-8e64-4ea7516fd73b)
+
 
 # Login Page
 * The web application is authenticated and a user must sign in using his username created in Register Page.
-![Login](https://github.com/mynknight/CSEA_Project/assets/95132151/ed2b6a0c-5a46-4f7f-86a1-bda6f1f77816)
+![Login]![login](https://github.com/mynknight/CSEA_Project/assets/109480688/be5b8825-88c2-4a5d-be35-9e163525f329)
+
 
 # Home Page
 * After login the home page is displayed, where user can see his favorite files and folders.
-![Homepage](https://github.com/mynknight/CSEA_Project/assets/95132151/b10743d9-7808-49c7-8b1a-835e6836cca2)
+![Homepage]![homepage](https://github.com/mynknight/CSEA_Project/assets/109480688/6f63ea0e-9884-4ed9-98f6-753a8d8f9be1)
+
 
 # My Files Page
 * In the side navigation bar we can see 'My files', where user can the files and folders uploaded by him.
-![My Files](https://github.com/mynknight/CSEA_Project/assets/95132151/56b23ec8-b943-4fa0-bc11-ef2823bf2261)
+![My Files]![Screenshot 2023-07-06 125448](https://github.com/mynknight/CSEA_Project/assets/109480688/c6d161b6-68b7-42e1-adc6-bc7b7e7e501d)
+
 
 # My profile Page
 * In the side navigation bar we can see 'My Profile Page', where user can see or update his profile.
-![Profile Page](https://github.com/mynknight/CSEA_Project/assets/95132151/b8fa6ac4-1ec1-434f-ae66-667b7d01ee25)
+![Profile Page]![Screenshot 2023-07-06 125609](https://github.com/mynknight/CSEA_Project/assets/109480688/66122df5-c887-4fe5-81d9-1b7317e0f4b7)
+
 
 # All Users Page
 * In the side navigation bar we can see 'All users,' where user can see the profiles of other users, using the website.
-![User Page](https://github.com/mynknight/CSEA_Project/assets/95132151/6e22aaf8-7ec3-41e4-9a78-67f189819e81)
+![userpage](https://github.com/mynknight/CSEA_Project/assets/109480688/313289e0-0e61-4d86-925b-9d45a6c1ad40)
 
 # Other User files
 * In the above page 'All users' clicking on each user we can get the files and folders uploaded by the respective user.
-![Other User repo](https://github.com/mynknight/CSEA_Project/assets/95132151/81492d45-692a-444a-9415-a48192d495e9)
+![Other User repo]![Screenshot 2023-07-06 125648](https://github.com/mynknight/CSEA_Project/assets/109480688/67f17eb9-8a41-43d8-958a-1bd97ac1a795)
+
 
 
