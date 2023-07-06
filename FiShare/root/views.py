@@ -38,8 +38,9 @@ def create_folder(request, parent_folder_id=None):
 
 @login_required
 def home(request):
-    favorite_files = AllFiles.objects.filter(is_favorite=True,folder=None)
-    favorite_folders = Folder.objects.filter(is_favorite=True, parent_folder=None)
+    logged_user=request.user
+    favorite_files = AllFiles.objects.filter(is_favorite=True,folder=None,owner=logged_user)
+    favorite_folders = Folder.objects.filter(is_favorite=True, parent_folder=None,user=logged_user)
     context = {
         'files': favorite_files,
         'folders': favorite_folders,
@@ -259,16 +260,14 @@ def FolderUploadIndex(request):
 
 
 def toggle_favorite(request, model, pk):
-    # if request.method == 'POST':
-        # print(get_object_or_404(AllFiles, pk=pk))
+        
         if model == 'File':
             item = get_object_or_404(AllFiles, pk=pk)
         elif model == 'Folder':
             item = get_object_or_404(Folder, pk=pk)
         else:
             return reverse('home')
-        # print(item)
-        # Toggle the 'is_favourite' field
+        
         item.is_favorite = not item.is_favorite
         item.save()
 
