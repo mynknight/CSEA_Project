@@ -26,6 +26,7 @@ Users are directed to a register on opening the website. After the registering, 
 * User can browse files and folders of other users.
 * User can download the files and folders of theirs and other users also.
 * Users can also keep the files and folders they are interested as favorites and can access them on Homepage.
+* User's can know their favourite files or folders based on the favourite icon color
 
 # Register Page
 * The user has to register when he uses the website for the first time.He can register with any of his Email ID.
