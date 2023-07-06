@@ -59,7 +59,7 @@ Users are directed to a register on opening the website. After the registering, 
 
 # Other User files
 * In the above page 'All users' clicking on each user we can get the files and folders uploaded by the respective user.
-![Other User repo]![Screenshot 2023-07-06 125648](https://github.com/mynknight/CSEA_Project/assets/109480688/67f17eb9-8a41-43d8-958a-1bd97ac1a795)
+![Screenshot 2023-07-06 125648](https://github.com/mynknight/CSEA_Project/assets/109480688/67f17eb9-8a41-43d8-958a-1bd97ac1a795)
 
 
 
