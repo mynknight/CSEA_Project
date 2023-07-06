@@ -2,7 +2,6 @@
 
 {%block favourite%}
 {% if folderuser == request.user %}
-<h2>Create Folder</h2>
 <div style="position: fixed; top: 20px; right: 20px;">
     <details class="dropdown action-buttons" style=" 
       --button-background: rgb(65, 160, 255);
@@ -27,7 +26,7 @@
       <ul>
         <li><a href="{% url 'create_folder' %}">Create Folder</a></li>
         <li><a href="{% url 'all_files_create' %}">Upload File</a></li>
-        <li><a href="{% url 'folder-upload-index' %}">Upload Folder</a></li>
+        <li><a href="{% url 'folder_upload' parent_folder_id %}">Upload Folder</a></li>
     </ul>
     </details>
     </div>

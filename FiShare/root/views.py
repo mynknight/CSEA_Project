@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse,HttpResponse,HttpResponseRedirect
 import os,io
-import shutil
 import zipfile
 from django.utils.text import slugify
 
@@ -83,6 +82,7 @@ def FolderUpload(request,pk):
         form = FolderUploadForm(request.POST, request.FILES)
 
         p = request.POST['path']
+
         print(p)
         print(p,1)
         file_path_list = []
@@ -139,12 +139,12 @@ def FolderUpload(request,pk):
 
                     folder = pa[len(pa)-1]
 
-                    f = AllFiles(file=formfile,user=request.user,folder=folder )
+                    f = AllFiles(file=formfile,owner=request.user,folder=folder )
                     f.name = f.filename()
                     f.save()
                     index = index+1
 
-        return redirect('home',pk)
+        return redirect('subfolder',pk)
     else:
         form = FolderUploadForm(None)
         return render(request,'root/folder_upload.html',{'form':form})
@@ -247,12 +247,12 @@ def FolderUploadIndex(request):
                 for formfile in request.FILES.getlist(field):
                     pa = pathlist_list[index]
                     folder = pa[len(pa)-1]
-                    f = AllFiles(file=formfile,user=request.user,folder=folder )
+                    f = AllFiles(file=formfile,owner=request.user,folder=folder )
                     f.name = f.filename()
                     f.save()
                     index = index+1
 
-        return redirect('home')
+        return redirect('all_files')
     else:
         form = FolderUploadForm(None)
         return render(request,'root/folder_upload.html',{'form':form})

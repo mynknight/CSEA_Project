@@ -46,4 +46,6 @@ class AllFiles(models.Model):
             os.remove(self.file.path)
         super().delete(*args, **kwargs)
 
+    def filename(self):
+        return os.path.basename(self.file.name)
 
