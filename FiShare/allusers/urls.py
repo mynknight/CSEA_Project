@@ -7,8 +7,7 @@ from root.views import MyFileFolderView
 
 urlpatterns = [
     path('all_users/', users_view.user_list, name='all_users'),
-    path('all_users/<int:user_id>', MyFileFolderView.as_view(template_name='root/all_files.html'),name='user_repo'),
-    # path('', include('root.urls')),
+    path('all_users/<int:user_id>', MyFileFolderView.as_view(template_name='root/home_base.html'),name='user_repo'),
     path('all_users/', include('root.urls')),
 ]
 
