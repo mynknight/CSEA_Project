@@ -7,7 +7,7 @@ class FolderForm(forms.ModelForm):
         fields = [ 'name' ]
         
 class FolderUploadForm(forms.ModelForm):
-    file = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': False, 'webkitdirectory': True, 'directory': True}))
+    file = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True, 'webkitdirectory': True, 'directory': True}))
 
     class Meta:
         model = Folder
